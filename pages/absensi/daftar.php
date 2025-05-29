@@ -1,13 +1,13 @@
 <?php
 require_once("../../db/config.php");
-session_start();
+require_once("../auth.php");
 
 $query = "SELECT
-users.NIP, users.nama, absensi.tanggal_absensi, absensi.jam_masuk, absensi.jam_keluar
+users.NIP, users.nama, absensi.id, absensi.tanggal_absensi, absensi.jam_masuk, absensi.jam_keluar
 FROM absensi_karyawan as absensi
 LEFT JOIN users ON absensi.nip_karyawan = users.NIP";
 
-$daftar_absensi = $db->query($query)->fetch_assoc();
+$daftar_absensi = $db->query($query)->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +39,7 @@ $daftar_absensi = $db->query($query)->fetch_assoc();
           <i class="fas fa-users"></i>
           <span>Karyawan</span>
         </a>
-        <a href=daftar.php" class="flex items-center space-x-2 p-3 rounded-lg bg-red-700">
+        <a href="daftar.php" class="flex items-center space-x-2 p-3 rounded-lg bg-red-700">
           <i class="fas fa-calendar-check"></i>
           <span>Absensi</span>
         </a>
@@ -108,8 +108,13 @@ $daftar_absensi = $db->query($query)->fetch_assoc();
                       <td class="py-3 px-6 text-center"><?= $absensi["jam_keluar"] ?></td>
                       <td class="py-3 px-6 text-center">
                         <div class="flex item-center justify-center space-x-2">
-                          <a href="edit.php" class="text-blue-500 hover:underline">Edit</a>
-                          <a href="hapus.php" class="text-red-500 hover:underline">Hapus</a>
+                          <a href="edit.php?id=<?= $absensi["id"] ?>" class="text-blue-500 hover:underline">
+                            Edit
+                          </a>
+
+                          <a href="hapus.php?delete=true&id=<?= $absensi["id"] ?>" onclick="return confirmDelete();" class="text-red-500 hover:underline">
+                            Hapus
+                          </a>
                         </div>
                       </td>
                     </tr>
@@ -121,6 +126,8 @@ $daftar_absensi = $db->query($query)->fetch_assoc();
       </main>
     </div>
   </div>
+
+  <script src="../../assets/js/prompt.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 require_once("db/config.php");
-require("pages/auth.php");
+require_once("pages/auth.php");
 
 $total_karyawan_query = "SELECT * FROM users";
 $daftar_karyawan = $db->query($total_karyawan_query)->fetch_all(MYSQLI_ASSOC);
