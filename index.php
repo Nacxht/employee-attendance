@@ -138,7 +138,7 @@ if (isset($_GET["delete"])) {
         </div>
 
         <div class="flex justify-end mb-4 mx-5">
-          <a href="pages/karyawan/tambah.php" class="bg-red-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow">
+          <a href="pages/karyawan/tambah.php" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow">
             + Tambah Karyawan
           </a>
         </div>
